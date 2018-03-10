@@ -1,3 +1,5 @@
+https://docs.google.com/document/d/1InCJcTayB7OIpp6NDCqiKIcg3mSb9r7XI-Rnp7vApig/edit
+
 # zad1 #
 Prostej kolejki ze stanowiskiem obsługi z wykładniczym czasem obsługi i ograniczonym buforze N. Źródło też ma rozkład wykładniczy. Wykonać symulację dla:  
 Lambda =1 (intensywność źródła); 

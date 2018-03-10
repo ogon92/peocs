@@ -2,7 +2,6 @@ simple Source
 {
     parameters:
         volatile double interarrival_time; 
-        volatile int initial_queue;        
 									 					  
     gates:
         output out;

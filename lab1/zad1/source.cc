@@ -13,12 +13,6 @@ Define_Module(Source);
 
 void Source::initialize()
 {
-	// for (int i = 0; i < (int)par("initial_queue"); i++) //this loop builds the initial queue
-	// {
-	// 	cMessage *job = new cMessage(" Job");
-	// 	send(job, "out");
-	// }
-
 	send_event = new cMessage("Send!");
 	scheduleAt(par("interarrival_time"), send_event);
 }
