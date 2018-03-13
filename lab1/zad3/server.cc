@@ -1,5 +1,6 @@
 #include <omnetpp.h>
 #include "histogram.h"
+#include "FileUtil.h"
 using namespace omnetpp;
 class Server : public cSimpleModule
 {
@@ -8,9 +9,7 @@ class Server : public cSimpleModule
 	cMessage *departure;	  //message-reminder of the end of service (job departure)
 	simtime_t departure_time; //time of the next departure
 	int queueMaxSize;
-
-	long jobInSystemCount;
-	SimTime jobsTime;
+	QueueHist histogram;
 
 	cMessage *popFromQ();
 	void insertToQ(cMessage *msg);
@@ -27,8 +26,7 @@ void Server::initialize()
 {
 	departure = new cMessage("Departure");
 	queueMaxSize = par("queue_max_size");
-	jobsTime = 0;
-	jobInSystemCount = 0;
+	histogram = QueueHist(queueMaxSize); // + 1 ??
 }
 
 void Server::handleMessage(cMessage *msgin)
@@ -36,7 +34,7 @@ void Server::handleMessage(cMessage *msgin)
 	if (msgin == departure) //job departure
 	{
 		cMessage *msg = popFromQ(); //remove job from the head of the queue
-		jobsTime += (simTime() - msg->getTimestamp());
+
 		send(msg, "out");
 		if (!queue.isEmpty()) //schedule next departure event
 		{
@@ -46,7 +44,6 @@ void Server::handleMessage(cMessage *msgin)
 	}
 	else //job arrival
 	{
-		jobInSystemCount++;
 		if (queue.isEmpty())
 		{
 			departure_time = simTime() + par("service_time");
@@ -59,7 +56,7 @@ void Server::handleMessage(cMessage *msgin)
 		}
 		else
 		{
-			
+			delete msgin;
 			// pakiet dropped
 		}
 	}
@@ -67,17 +64,22 @@ void Server::handleMessage(cMessage *msgin)
 
 void Server::finish()
 {
-	
-	cout << endl
-		 << "średni czas pobytu zadania w systemie: " << jobsTime / jobInSystemCount << endl;
+	std::ostream &stream = FileUtil::getInstance().getFile(par("file_name"));
+
+	//std::ostream &stream = cout;
+	stream << "Mi: " << (double)par("mi") << endl;
+	stream << "Lambda: " << (double)par("lambda") << endl;
+	stream << "średnia dlugość kolejki: " << histogram.createPv() << endl;
 }
 
 void Server::insertToQ(cMessage *msg)
 {
+	histogram.put();
 	queue.insert(msg);
 }
 
 cMessage *Server::popFromQ()
 {
+	histogram.get();
 	return (cMessage *)queue.pop();
 }

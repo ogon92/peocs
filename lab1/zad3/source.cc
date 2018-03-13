@@ -20,7 +20,7 @@ void Source::initialize()
 void Source::handleMessage(cMessage *msgin) //send next job
 {
 	cMessage *job = new cMessage(" Job");
-	job->setTimestamp(simTime());
+	job->setTimestamp();
 	send(job, "out");
 	scheduleAt(simTime() + par("interarrival_time"), send_event); //schedule next send event
 }
