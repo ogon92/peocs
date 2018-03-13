@@ -1,7 +1,7 @@
 simple Source
 {
     parameters:
-        volatile double interarrival_time;     
+        volatile double interarrival_time;       
 									 					  
     gates:
         output out;
@@ -13,7 +13,10 @@ simple Server
 {
     parameters:
         volatile double service_time;           
-        volatile int queue_max_size;     
+        volatile int queue_max_size;   
+        volatile double mi; 
+        volatile double lambda;   
+        volatile string file_name;   
     gates:
         input in;
         output out;
