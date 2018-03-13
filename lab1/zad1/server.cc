@@ -1,5 +1,6 @@
 #include <omnetpp.h>
 #include "histogram.h"
+#include "FileUtil.h"
 using namespace omnetpp;
 class Server : public cSimpleModule
 {
@@ -33,8 +34,6 @@ void Server::initialize()
 	jobInSystemCount = 0;
 }
 
-
-
 void Server::handleMessage(cMessage *msgin)
 {
 	if (msgin == departure) //job departure
@@ -63,6 +62,7 @@ void Server::handleMessage(cMessage *msgin)
 		}
 		else
 		{
+			delete msgin;
 			// pakiet dropped
 		}
 	}
@@ -70,10 +70,20 @@ void Server::handleMessage(cMessage *msgin)
 
 void Server::finish()
 {
-	cout << "srednia dlugosc kolejki: " << histogram.createPv() << endl;
-	histogram.printPv();
-	cout << endl
-		 << "średni czas pobytu zadania w systemie: " << jobsTime/jobInSystemCount << endl;
+	std::ostream &stream = FileUtil::getInstance().getFile(par("file_name"));
+
+	//std::ostream &stream = cout;
+	stream << "Mi: " << (double)par("mi") << endl;
+	stream << "Lambda: " << (double)par("lambda") << endl;
+	stream << "średnia dlugość kolejki: " << histogram.createPv() << endl;
+
+	stream << "średni czas pobytu zadania w systemie: " << jobsTime / jobInSystemCount << endl;
+
+	stream << "Histogram: " << endl;
+	histogram.printPv(stream);
+
+	stream << "Prawdopodobienstwo liczby zadan w systemie: " << endl;
+	histogram.printProbability(stream);
 }
 
 void Server::insertToQ(cMessage *msg)
