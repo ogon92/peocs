@@ -12,7 +12,7 @@ class Server : public cSimpleModule
 	QueueHist histogram;
 
 	long jobInSystemCount;
-	SimTime jobsTime;
+	double jobsTime;
 
 	cMessage *popFromQ();
 	void insertToQ(cMessage *msg);
@@ -39,7 +39,7 @@ void Server::handleMessage(cMessage *msgin)
 	if (msgin == departure) //job departure
 	{
 		cMessage *msg = popFromQ(); //remove job from the head of the queue
-		jobsTime += (simTime() - msg->getTimestamp());
+		jobsTime += (simTime().dbl() - msg->getTimestamp().dbl());
 		send(msg, "out");
 		if (!queue.isEmpty()) //schedule next departure event
 		{
