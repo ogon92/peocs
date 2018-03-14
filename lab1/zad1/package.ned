@@ -26,6 +26,9 @@ simple Server
 //////////////////////////////////////////////////
 simple Sink
 {
+    parameters: 
+        volatile string file_name;   
+
     gates:
         input in;
 }
