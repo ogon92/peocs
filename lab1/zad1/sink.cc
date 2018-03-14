@@ -30,6 +30,8 @@ void Sink::finish()
     std::ostream &stream = FileUtil::getInstance().getFile(par("file_name"));
     stream << "Sredni czas zadania w systemie = " << mean << "\n";
     stream << "Zakonczenie symulacji" << "\n\n";
+
+    stream << std::flush;
 }
 
 
