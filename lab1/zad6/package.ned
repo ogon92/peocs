@@ -17,9 +17,8 @@ simple Server
         volatile double mi; 
         volatile double lambda;   
         volatile string file_name;   
-        volatile string name;  
     gates:
-        input in[];
+        input in;
         output out;
 }
 
@@ -27,8 +26,6 @@ simple Server
 //////////////////////////////////////////////////
 simple Sink
 {
-    parameters:
-        volatile string file_name;   
     gates:
         input in;
 }
@@ -40,19 +37,11 @@ module GG1
 	parameters:
 	
     submodules:
-         source1: Source {
+        source: Source {
             parameters:
                 @display("i=block/source");
         }
-        source2: Source {
-            parameters:
-                @display("i=block/source");
-        }
-        server1: Server {
-            parameters:
-                @display("i=block/queue");
-        }
-        server2: Server {
+        server: Server {
             parameters:
                 @display("i=block/queue");
         }
@@ -61,11 +50,8 @@ module GG1
                 @display("i=block/sink");
         }
     connections:
-        source1.out --> {  } --> server1.in++;
-        source2.out --> {  } --> server1.in++;
-
-        server1.out --> {  } --> server2.in++;
-        server2.out --> {  } --> sink.in;
+        source.out --> {  } --> server.in;
+        server.out --> {  } --> sink.in;
 }
 
 //////////////////////////////////////////////////
