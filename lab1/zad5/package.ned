@@ -1,13 +1,3 @@
-simple Source
-{
-    parameters:
-        volatile double interarrival_time;       
-									 					  
-    gates:
-        output out;
-}
-
-
 //////////////////////////////////////////////////
 simple Server
 {
@@ -15,7 +5,7 @@ simple Server
         volatile double service_time;           
         volatile int queue_max_size;   
         volatile double mi; 
-        volatile double lambda;   
+		volatile int init_size; 
         volatile string file_name;   
         volatile string name;  
     gates:
@@ -23,13 +13,6 @@ simple Server
         output out;
 }
 
-
-//////////////////////////////////////////////////
-simple Sink
-{
-    gates:
-        input in;
-}
 
 
 //////////////////////////////////////////////////

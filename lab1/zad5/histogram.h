@@ -11,7 +11,7 @@ using namespace std;
 using namespace omnetpp;
 class Histogram
 {
-  simtime_t simtime;
+  double simtime;
 
 protected:
   vector<double> *hist;
@@ -26,12 +26,12 @@ public:
     for (int i = 0; i < size; i++)
       (*hist)[i] = 0;
   }
-  void set(simtime_t val, int i)
+  void set(double val, int i)
   {
     if (i < size)
-      (*hist)[i] += val.dbl();
+      (*hist)[i] += val;
     else
-      (*hist)[size - 1] += val.dbl();
+      (*hist)[size - 1] += val;
     simtime += val;
   }
   double createPv()
@@ -39,7 +39,7 @@ public:
   {
     double mean = 0;
     for (int i = 0; i < size; i++)
-      (*hist)[i] = (*hist)[i] / simtime.dbl();
+      (*hist)[i] = (*hist)[i] / simtime;
     for (int i = 0; i < size; i++)
       mean += ((*hist)[i]) * i;
     return mean;
@@ -67,7 +67,7 @@ public:
 class QueueHist : public Histogram //klasa buduje historam na podstawie pr�bek czasowych
 {
 
-  simtime_t told;
+  double told;
   int nb_of_clients;
 
 public:
@@ -79,14 +79,14 @@ public:
   };
   void put() // wywolujemy przy kazdym wsawianiu do kolejki
   {
-    set(simTime() - told, nb_of_clients);
-    told = simTime();
+    set(simTime().dbl() - told, nb_of_clients);
+    told = simTime().dbl();
     nb_of_clients++;
   };
   void get() // wywolujemy przy usuwaniu pakietu z  kolejki
   {
-    set(simTime() - told, nb_of_clients);
-    told = simTime();
+    set(simTime().dbl() - told, nb_of_clients);
+    told = simTime().dbl();
     nb_of_clients--;
   };
 };

@@ -1,0 +1,4 @@
+﻿serwer1: 
+średnia dlugość kolejki: 0.796859
+serwer2: 
+średnia dlugość kolejki: 499.203
