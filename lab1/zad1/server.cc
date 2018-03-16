@@ -11,9 +11,6 @@ class Server : public cSimpleModule
 	int queueMaxSize;
 	QueueHist histogram;
 
-	long jobInSystemCount;
-	SimTime jobsTime;
-
 	cMessage *popFromQ();
 	void insertToQ(cMessage *msg);
 
@@ -30,8 +27,6 @@ void Server::initialize()
 	departure = new cMessage("Departure");
 	queueMaxSize = par("queue_max_size");
 	histogram = QueueHist(queueMaxSize); // + 1 ??
-	jobsTime = 0;
-	jobInSystemCount = 0;
 }
 
 void Server::handleMessage(cMessage *msgin)
@@ -39,7 +34,6 @@ void Server::handleMessage(cMessage *msgin)
 	if (msgin == departure) //job departure
 	{
 		cMessage *msg = popFromQ(); //remove job from the head of the queue
-		jobsTime += (simTime() - msg->getTimestamp());
 		send(msg, "out");
 		if (!queue.isEmpty()) //schedule next departure event
 		{
@@ -49,7 +43,6 @@ void Server::handleMessage(cMessage *msgin)
 	}
 	else //job arrival
 	{
-		jobInSystemCount++;
 		if (queue.isEmpty())
 		{
 			departure_time = simTime() + par("service_time");
@@ -76,8 +69,6 @@ void Server::finish()
 	stream << "Mi: " << (double)par("mi") << endl;
 	stream << "Lambda: " << (double)par("lambda") << endl;
 	stream << "średnia dlugość kolejki: " << histogram.createPv() << endl;
-
-	stream << "średni czas pobytu zadania w systemie: " << jobsTime / jobInSystemCount << endl;
 
 	stream << "Histogram: " << endl;
 	histogram.printPv(stream);
