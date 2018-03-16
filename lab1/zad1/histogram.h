@@ -52,15 +52,26 @@ public:
         str << i << " " << (*hist)[i] << endl;
     }
   }
-  void printProbability(ostream &str = cout)
+  void printProbability(ostream &str, float lambda, float mi, int L)
   {
     str << "p(0) = 0"
         << "\n";
     for (int i = 1; i <= size; i++)
     {
       if ((*hist)[i - 1] > 0)
-        str << "p(" << i << ") = " << (*hist)[i - 1] << "\n";
+      {
+        double calculated = calcProbability(lambda, mi, L, i - 1);
+        str << "p(" << i << ") = " << (*hist)[i - 1] <<
+         " obliczone = " << calculated <<
+         " blad = " << (*hist)[i - 1] - calculated << "\n";
+      }
     }
+  }
+
+  double calcProbability(float lambda, float mi, int L, int i)
+  {
+    float p = lambda/mi;
+    return (1 - p) * pow(p, i);
   }
 };
 

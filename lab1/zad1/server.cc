@@ -74,7 +74,7 @@ void Server::finish()
 	histogram.printPv(stream);
 
 	stream << "Prawdopodobienstwo liczby zadan w systemie: " << endl;
-	histogram.printProbability(stream);
+	histogram.printProbability(stream, (double)par("lambda"), (double)par("mi"), queueMaxSize);
 }
 
 void Server::insertToQ(cMessage *msg)
