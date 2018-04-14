@@ -1,0 +1,54 @@
+"AAA"
+
+średnia dlugość kolejki A: 0.0132421
+HISTOGRAM A
+0 0.986758
+1 0.0132421
+Prawdopodobienstwo liczby zadan A w systemie: 
+p(0) = 0
+p(1) = 0.986758 obliczone = 0.75 blad = 0.236758
+p(2) = 0.0132421 obliczone = 0.1875 blad = -0.174258
+średnia dlugość kolejki B: 0.037031
+HISTOGRAM B
+0 0.962969
+1 0.037031
+Prawdopodobienstwo liczby zadan B w systemie: 
+p(0) = 0
+p(1) = 0.962969 obliczone = 0.75 blad = 0.212969
+p(2) = 0.037031 obliczone = 0.1875 blad = -0.150469
+"BBB"
+
+średnia dlugość kolejki A: 0.0223532
+HISTOGRAM A
+0 0.977647
+1 0.0223532
+Prawdopodobienstwo liczby zadan A w systemie: 
+p(0) = 0
+p(1) = 0.977647 obliczone = 0.75 blad = 0.227647
+p(2) = 0.0223532 obliczone = 0.1875 blad = -0.165147
+średnia dlugość kolejki B: 0.0331801
+HISTOGRAM B
+0 0.96682
+1 0.0331801
+Prawdopodobienstwo liczby zadan B w systemie: 
+p(0) = 0
+p(1) = 0.96682 obliczone = 0.75 blad = 0.21682
+p(2) = 0.0331801 obliczone = 0.1875 blad = -0.15432
+"CCC"
+
+średnia dlugość kolejki A: 0.0579219
+HISTOGRAM A
+0 0.942078
+1 0.0579219
+Prawdopodobienstwo liczby zadan A w systemie: 
+p(0) = 0
+p(1) = 0.942078 obliczone = 0.75 blad = 0.192078
+p(2) = 0.0579219 obliczone = 0.1875 blad = -0.129578
+średnia dlugość kolejki B: 0.0711219
+HISTOGRAM B
+0 0.928878
+1 0.0711219
+Prawdopodobienstwo liczby zadan B w systemie: 
+p(0) = 0
+p(1) = 0.928878 obliczone = 0.75 blad = 0.178878
+p(2) = 0.0711219 obliczone = 0.1875 blad = -0.116378

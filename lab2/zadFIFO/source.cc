@@ -1,5 +1,7 @@
 #include <omnetpp.h>
 
+using namespace omnetpp;
+
 class Source : public cSimpleModule
 {
 	cMessage *send_event; //message-reminder: send next job

@@ -1,5 +1,7 @@
 #include <omnetpp.h>
 
+using namespace omnetpp;
+
 class Sink : public cSimpleModule
 {
   protected:

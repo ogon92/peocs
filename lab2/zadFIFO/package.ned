@@ -11,31 +11,34 @@ simple Source
 
 
 //////////////////////////////////////////////////
-simple ServerFifo
+simple Server
 {
     parameters:
-        volatile double service_time;      
+        volatile double service_time0;  
+		volatile double service_time1;	
+		
 		volatile int out_1_chance;      
-		volatile int out_2_chance;    	
+		volatile int out_2_chance; 
+		
+		volatile double miA;
+		volatile double miB;
+		
+		volatile double lambdaA;
+		volatile double lambdaB;
+		
+		volatile int queue_max_size;
+		
+		volatile string name; 
+		volatile string file_name; 
+		
 		
     gates:
         input in;
 		input in2;
-        output out1;
+        output out;
 		output out2;
 }
 
-simple Server
-{
-    parameters:
-        volatile double service_time;      
-		volatile int out_1_chance;      
-		volatile int out_2_chance;   
-		
-    gates:
-        input in;
-        output out;
-}
 
 //////////////////////////////////////////////////
 simple Sink
@@ -60,28 +63,26 @@ module GG1
             parameters:
                 @display("i=block/source");
         }
-        server1: ServerFifo {
+        server1: Server {
             parameters:
                 @display("i=block/queue");
         }
 		server2: Server {
             parameters:
-                @display("i=block/cogwheel");
+                @display("i=block/queue");
         }
 		server3: Server {
-			parameters:
-                @display("i=block/cogwheel");
-		}
+            parameters:
+                @display("i=block/queue");
+        }
         sink: Sink {
             parameters:
                 @display("i=block/sink");
         }
-		
     connections allowunconnected:
         source1.out --> server1.in;
 		source2.out --> server1.in2;
-		
-		server1.out1  --> server2.in;
+		server1.out  --> server2.in;
 		server1.out2  --> server3.in;
 		
         server2.out  --> sink.in;
